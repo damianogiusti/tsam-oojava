@@ -15,7 +15,7 @@ public class Esercizio {
 	 * negativo.
 	 */
 
-	static double sum(double[] a) {
+	static double sumPos(double[] a) {
 		int i = 0;
 		double sum = 0;
 		while (i < a.length && a[i] >= 0)
@@ -31,7 +31,7 @@ public class Esercizio {
 	 * Dato un numero n, restituire la somma dei primi n numeri interi positivi
 	 * dispari
 	 */
-	static double sumFirstN(int n) {
+	static double sumOdd(int n) {
 		int sum = 0;
 		for (int i = 0; i < n; i++)
 			sum += 2 * n - 1;
@@ -44,7 +44,7 @@ public class Esercizio {
 	 * 
 	 * Dato un array di 10 elementi, calcolarne la media
 	 */
-	static double avg(double[] a) {
+	static double average(double[] a) {
 		double avg = 0;
 		for (double d : a)
 			avg += d / a.length;
@@ -70,7 +70,7 @@ public class Esercizio {
 	 * 
 	 * sumInterval(5, 3) => 12
 	 */
-	static double sumInterval(double a, double b) {
+	static double sumRange(double a, double b) {
 		double max = Math.max(a, b);
 		double min = Math.min(a, b);
 		double sum = 0;
