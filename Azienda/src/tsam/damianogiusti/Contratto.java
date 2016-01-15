@@ -1,3 +1,4 @@
+package tsam.damianogiusti;
 
 public class Contratto {
 	private String nome;

@@ -1,3 +1,4 @@
+package tsam.damianogiusti;
 
 public class Dipendente {
 	private String nome;
