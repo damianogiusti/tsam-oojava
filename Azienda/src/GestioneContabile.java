@@ -3,9 +3,17 @@ import java.util.List;
 
 public class GestioneContabile {
 
-	Azienda azienda;
+	private Azienda azienda;
 
 	public GestioneContabile(Azienda a) {
+		azienda = a;
+	}
+	
+	public Azienda getAzienda() {
+		return azienda;
+	}
+	
+	public void setAzienda(Azienda a) {
 		azienda = a;
 	}
 
@@ -18,8 +26,8 @@ public class GestioneContabile {
 
 		GestioneContabile gc = new GestioneContabile(new Azienda("MiaAzienda", dipendenti));
 
-		for (Dipendente d : gc.azienda.dipendenti) {
-			System.out.println(d.nome + " " + d.cognome + " con " + (double) d.stipendio() / 100 + "€");
+		for (Dipendente d : gc.getAzienda().getDipendenti()) {
+			System.out.println(d.getNome() + " " + d.getCognome() + " con " + (double) d.stipendio() / 100 + "€");
 		}
 		
 	}

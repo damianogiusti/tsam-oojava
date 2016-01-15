@@ -3,8 +3,8 @@ import java.util.List;
 
 public class Azienda {
 	
-	String ragioneSociale;
-	List<Dipendente> dipendenti;
+	private String ragioneSociale;
+	private List<Dipendente> dipendenti;
 	
 	public Azienda(String r) {
 		ragioneSociale = r;
@@ -38,4 +38,21 @@ public class Azienda {
 		
 		return elenco;
 	}
+
+	public String getRagioneSociale() {
+		return ragioneSociale;
+	}
+
+	public void setRagioneSociale(String ragioneSociale) {
+		this.ragioneSociale = ragioneSociale;
+	}
+
+	public List<Dipendente> getDipendenti() {
+		return dipendenti;
+	}
+
+	public void setDipendenti(List<Dipendente> dipendenti) {
+		this.dipendenti = dipendenti;
+	}
+	
 }

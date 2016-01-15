@@ -98,13 +98,15 @@ public class Mondo {
 
 	private void dump() {
 		System.out.println("a");
-		/*
-		 * for (int i = 0; i < DIM; i++) { System.out.print("\r\n"); for (int j
-		 * = 0; j < DIM; j++) System.out.print((mondo[i][j].animale == null) ?
-		 * "-\t" : mondo[i][j].animale.CARATTERE + "\t"); } System.out .println(
-		 * "\r\n------------------------------------------------------------------------------------------"
-		 * );
-		 */
+
+		for (int i = 0; i < DIM; i++) {
+			System.out.print("\r\n");
+			for (int j = 0; j < DIM; j++)
+				System.out.print((mondo[i][j].animale == null) ? "-\t" : mondo[i][j].animale.CARATTERE + "\t");
+		}
+		System.out.println(
+				"\r\n------------------------------------------------------------------------------------------");
+
 	}
 
 	public static void main(String[] pippo) {
