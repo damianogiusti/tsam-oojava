@@ -1,4 +1,4 @@
-package tsam.damianogiusti;
+package giusti.damiano.azienda.base;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 public class Azienda {
 	
 	private String ragioneSociale;
+	private String piva;
 	private List<Dipendente> dipendenti;
 	
 	public Azienda(String r) {
@@ -55,6 +56,14 @@ public class Azienda {
 
 	public void setDipendenti(List<Dipendente> dipendenti) {
 		this.dipendenti = dipendenti;
+	}
+
+	public String getPiva() {
+		return piva;
+	}
+
+	public void setPiva(String piva) {
+		this.piva = piva;
 	}
 	
 }

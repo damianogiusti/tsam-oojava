@@ -1,4 +1,4 @@
-package tsam.damianogiusti;
+package giusti.damiano.azienda.base;
 
 public class Dipendente {
 	private String nome;

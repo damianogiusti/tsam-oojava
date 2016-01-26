@@ -1,4 +1,5 @@
-package tsam.damianogiusti;
+package giusti.damiano.azienda.base;
+
 import java.util.ArrayList;
 import java.util.List;
 
