@@ -1,10 +1,6 @@
 package giusti.damiano.videoteca;
 
-public class FilmDVD extends Film {
-	
-	public FilmDVD() {
-		super();
-	}
+public class FilmDVD extends Supporto {
 	
 	public int costoNoleggio(int numGiorni) {
 		if (numGiorni < 1)
