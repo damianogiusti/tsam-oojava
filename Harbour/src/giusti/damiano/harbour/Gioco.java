@@ -18,13 +18,13 @@ public class Gioco {
 	
 	public void attacca(Invasore[] invasori) {
 		for (Invasore i : invasori) {
-			porto.arrecaDanno(i.distruggiMq());;
+			porto.arrecaDanno(i.distruggiMq());
 		}
 		porto.incrementaNumAttacchi();
 	}
 	
 	public boolean isPortoDistrutto() {
-		return porto.getDimensioneMq() > 0;
+		return porto.getDimensioneMq() <= 0;
 	}
 		
 	public PortoNavale getPorto() {
@@ -41,6 +41,7 @@ public class Gioco {
 		Gioco gioco = new Gioco();
 		
 		invasori = new Invasore[5];
+		// double totArmamenti = 0;
 		for (int i = 0; i < 5; i++) {
 			if (i % 2 == 0) {
 				invasori[i] = new Sottomarino();
@@ -55,7 +56,10 @@ public class Gioco {
 				((Aereo)invasori[i]).setnArmamentiAlpha(25);
 				((Aereo)invasori[i]).setnArmamentiBeta(10);
 			}
+			// totArmamenti += invasori[i].distruggiMq();
 		}
+
+		// System.out.println(totArmamenti);
 		
 		while (!gioco.isPortoDistrutto()) {
 			gioco.attacca(invasori);
