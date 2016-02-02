@@ -1,6 +1,6 @@
 package giusti.damiano.harbour;
 
-public class Sottomarino extends Invasore implements MqDistrutti {
+public class Sottomarino extends Invasore  {
 	
 	private int numArmamenti;
 	private float stazza;

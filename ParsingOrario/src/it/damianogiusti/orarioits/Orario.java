@@ -132,20 +132,23 @@ public class Orario {
 			}
 		});
 
-		SimpleDateFormat sdf = new SimpleDateFormat("u");
+		SimpleDateFormat sdfDayOfWeek = new SimpleDateFormat("u");
+		SimpleDateFormat sdfDayOfMonth = new SimpleDateFormat("d");
+		
 		int gap = 0;
 		boolean primo = true;
 		for (Giornata g : orarioFinale) {
-			int numeroGiorno = Integer.parseInt(sdf.format(g.getData()));
+			int numeroGiorno = Integer.parseInt(sdfDayOfWeek.format(g.getData()));
 			gap = numeroGiorno - gap;
 
 			if (numeroGiorno == 1) {
-				if (!primo)
+				/*if (!primo)
 					tbody.append("</tr>");
 				if (primo)
 					primo = false;
-
-				tbody.append("<tr>");
+*/
+				tbody = tbody.append("<tr>");
+				
 			}
 
 			// se tra una giornata e l'altra ho solo un giorno di differenza
@@ -157,7 +160,7 @@ public class Orario {
 			else {
 				// riempio gli spazi vuoti
 				for (int i = 1; i < gap; i++) {
-					tbody.append("<td></td>");
+					tbody.append("<td>");
 				}
 			}
 		}

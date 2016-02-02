@@ -40,6 +40,9 @@ public class Gioco {
 		Invasore[] invasori;
 		Gioco gioco = new Gioco();
 		
+		gioco.isPortoDistrutto();
+		
+		
 		invasori = new Invasore[5];
 		// double totArmamenti = 0;
 		for (int i = 0; i < 5; i++) {
