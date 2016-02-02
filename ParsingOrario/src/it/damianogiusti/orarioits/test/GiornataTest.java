@@ -26,7 +26,6 @@ public class GiornataTest {
 			assertEquals("Damiano", g.getDocenti()[1]);
 			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace(System.err);
 		}
 	}

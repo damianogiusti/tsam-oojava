@@ -3,11 +3,18 @@ package it.damianogiusti.orarioits;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 import org.jsoup.*;
+import org.jsoup.helper.DataUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
+import sun.rmi.runtime.Log;
 
 public class Orario {
 
@@ -22,8 +29,10 @@ public class Orario {
 		ArrayList<Giornata> orario = new ArrayList<Giornata>();
 		ArrayList<Giornata> orarioFinale = new ArrayList<Giornata>();
 
-		if (args.length != 1)
-			System.err.println("Expected 1 param: path to html file containing the fn orario");
+		if (args.length != 1) {
+			System.err.println("Expected 1 param: path to html file containing the fuckin orario");
+			return;
+		}
 
 		Document doc = null;
 		try {
@@ -50,6 +59,7 @@ public class Orario {
 					Giornata g = new Giornata();
 
 					for (Element td : tr.getElementsByTag("td")) {
+
 						if (colonna != 3) {
 							switch (colonna) {
 							case ORA_DA:
@@ -62,7 +72,6 @@ public class Orario {
 								try {
 									g.setData(td.text());
 								} catch (ParseException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 								break;
@@ -76,32 +85,85 @@ public class Orario {
 								;
 							}
 						}
-
 						colonna++;
 					}
 					orario.add(g);
 				}
 			} // fine lettura tabella
-			
-			
+
 			// merge nell'orario definitivo
-			for (int i = 0; i < orario.size() - 1; i++) {
+			Date dataUltimoInserito = null;
+			for (int i = 0; i < orario.size(); i++) {
 				Giornata nuova = null;
-				for (int j = i + 1; j < orario.size(); j++) {
+				for (int j = i + 1; j < orario.size() - 1; j++) {
 					if (orario.get(i).getData().equals(orario.get(j).getData())) {
 						nuova = Giornata.merge(orario.get(i), orario.get(j));
+						break;
 					}
 				}
-				if (nuova != null)
+
+				if (nuova != null) {
 					orarioFinale.add(nuova);
-				else
+					nuova = null;
+					dataUltimoInserito = orario.get(i).getData();
+				} else if (dataUltimoInserito == null) {
 					orarioFinale.add(orario.get(i));
+					dataUltimoInserito = orario.get(i).getData();
+				} else if (dataUltimoInserito != null && !orario.get(i).getData().equals(dataUltimoInserito)) {
+					orarioFinale.add(orario.get(i));
+					dataUltimoInserito = orario.get(i).getData();
+				}
+
 			} // fine merge
 		} // fine procedura di parsing, ArrayList ORARIO popolata
-		
-		return;
-		
-		
+
+		Document template = null;
+		try {
+			template = Jsoup.parse(new File("/home/damiano/Scrivania/template.html"), "UTF-8");
+		} catch (Exception e) {
+
+		}
+		Element tbody = template.getElementsByTag("tbody").get(0);
+
+		Collections.sort(orarioFinale, new Comparator<Giornata>() {
+			@Override
+			public int compare(Giornata o1, Giornata o2) {
+				return o1.getData().compareTo(o2.getData());
+			}
+		});
+
+		SimpleDateFormat sdf = new SimpleDateFormat("u");
+		int gap = 0;
+		boolean primo = true;
+		for (Giornata g : orarioFinale) {
+			int numeroGiorno = Integer.parseInt(sdf.format(g.getData()));
+			gap = numeroGiorno - gap;
+
+			if (numeroGiorno == 1) {
+				if (!primo)
+					tbody.append("</tr>");
+				if (primo)
+					primo = false;
+
+				tbody.append("<tr>");
+			}
+
+			// se tra una giornata e l'altra ho solo un giorno di differenza
+			if (gap == 1) {
+				// inserisco la giornata in HTML
+				tbody.append(g.toHtml());
+			}
+			// se tra una giornata e l'altra ho piu giorni
+			else {
+				// riempio gli spazi vuoti
+				for (int i = 1; i < gap; i++) {
+					tbody.append("<td></td>");
+				}
+			}
+		}
+
+		System.out.println(template.html());
+
 	} // fine main
 
 }

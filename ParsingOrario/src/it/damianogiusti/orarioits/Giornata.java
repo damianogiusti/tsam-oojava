@@ -93,9 +93,19 @@ public class Giornata {
 		else if (materie[1] != null)
 			docenti[1] = docente;
 	}
-	
-	public String toString() {
-		return "";
+
+	public String toHtml() {
+		String html = "<td>";
+		if (materie[0] != null) {
+			html += "<span class=\"materia\">" + materie[0] + "</span><br/><span class=\"orario\">" + orari[0]
+					+ "</span><br/><span class=\"docente\">" + docenti[0] + "</span><br/>";
+		}
+		if (materie[1] != null) {
+			html += "<span class=\"materia\">" + materie[1] + "</span><br/><span class=\"orario\">" + orari[1]
+					+ "</span><br/><span class=\"docente\">" + docenti[1] + "</span>";
+		}
+		html += "</td>";
+		return html;
 	}
 
 	public static Giornata merge(Giornata g1, Giornata g2) {
@@ -115,7 +125,7 @@ public class Giornata {
 		g.setMaterie(new String[] { mattina.getMaterie()[0], pomeriggio.getMaterie()[1] });
 		g.setDocenti(new String[] { mattina.getDocenti()[0], pomeriggio.getDocenti()[1] });
 		g.setData(g1.getData());
-		
+
 		return g;
 	}
 
