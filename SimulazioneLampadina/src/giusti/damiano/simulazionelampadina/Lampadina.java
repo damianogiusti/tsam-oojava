@@ -31,21 +31,23 @@ public class Lampadina {
 
 	public static void main(String[] args) {
 		Lampadina lampadina = new Lampadina(50000);
-		
+
 		int cicliProva = 49999;
 
-		for (int i = 0; i < cicliProva; i++) {
-			try {
+		try {
+
+			for (int i = 0; i < cicliProva; i++) {
 				lampadina.switchOn();
-			} catch (LampadinaBruciataException e) {
-				e.printStackTrace();
-			}
-			finally {
 				lampadina.switchOff();
 			}
+			System.out.println("Eseguiti i cicli di prova");
+
+		} catch (LampadinaBruciataException e) {
+			e.printStackTrace();
+		} finally {
+			lampadina.switchOff();
 		}
-		
-		System.out.println("Eseguiti i cicli di prova");
+
 	}
 
 }
