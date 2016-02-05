@@ -1,13 +1,18 @@
 package giusti.damiano.simulazionelampadina;
 
 class LampadinaBruciataException extends Exception {
+
+	@Override
+	public String getMessage() {
+		return "Lampadina bruciata :C";
+	}
+
 }
 
 public class Lampadina {
 
 	private int cicliMax;
 	private int contaCicli;
-	private boolean stato;
 
 	public Lampadina() {
 		this.cicliMax = 0;
@@ -19,33 +24,35 @@ public class Lampadina {
 		this.contaCicli = 0;
 	}
 
-	public void switchOn() throws LampadinaBruciataException {
-		stato = true;
+	public String switchOn() throws LampadinaBruciataException {
 		if (++contaCicli == cicliMax)
 			throw new LampadinaBruciataException();
+
+		return "Lampadina accesa";
 	}
 
-	public void switchOff() {
-		stato = false;
+	public String switchOff() {
+		return "Lampadina spenta";
 	}
 
 	public static void main(String[] args) {
-		Lampadina lampadina = new Lampadina(50000);
+		Lampadina lampadina = new Lampadina(5);
 
-		int cicliProva = 49999;
+		int cicliProva = 6;
 
 		try {
 
 			for (int i = 0; i < cicliProva; i++) {
-				lampadina.switchOn();
-				lampadina.switchOff();
+				System.out.println("Accendo...");
+				System.out.println(lampadina.switchOn());
+				System.out.println(lampadina.switchOff());
 			}
 			System.out.println("Eseguiti i cicli di prova");
 
 		} catch (LampadinaBruciataException e) {
 			e.printStackTrace();
 		} finally {
-			lampadina.switchOff();
+			;
 		}
 
 	}
