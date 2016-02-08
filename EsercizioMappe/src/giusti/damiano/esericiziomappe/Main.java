@@ -2,10 +2,10 @@ package giusti.damiano.esericiziomappe;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import sun.security.ssl.HandshakeOutStream;
+import java.util.TreeMap;
 
 class Person implements Comparable<Person> {
 
@@ -25,19 +25,24 @@ class Person implements Comparable<Person> {
 
 	@Override
 	public boolean equals(Object p) {
-		return false;
+		if (!(p instanceof Person))
+			return false;
+
+		Person persona = (Person) p;
+		if (persona.getNome() == null)
+			return this.nome == null;
+
+		return this.nome.equals(persona.nome);
 	}
 
 	@Override
 	public int compareTo(Person p) {
-		// TODO Auto-generated method stub
-		return 0;
+		return nome.compareTo(p.getNome());
 	}
-	
+
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
+		return nome.hashCode();
 	}
 }
 
@@ -50,32 +55,63 @@ public class Main {
 
 	// Esempio:
 	// ["pippo", "pluto", "pippo", "gigi"]
-	// {"pippo":2, "pluto":1, "gigi": 1}
+	// {"pippo" : 2, "pluto" : 1, "gigi" : 1}
 
 	public static void main(String[] args) {
 		List<Person> persone = Arrays.asList(new Person("pippo"), new Person("pluto"), new Person("pippo"),
 				new Person("gigi"));
 
-		Map<Person, Integer> hashmap = new HashMap<Person, Integer>() {
+		HASHMAP: {
+			Map<Person, Integer> hashmap = new HashMap<Person, Integer>() {
+				@Override
+				public Integer put(Person key, Integer value) {
+					if (this.containsKey(key))
+						return super.put(key, this.get(key) + 1);
+					return super.put(key, 1);
+				}
+			};
 
-			@Override
-			public Integer put(Person key, Integer value) {
-				if (this.containsKey(key))
-					return super.put(key, this.get(key) + 1);
-				return super.put(key, 1);
+			// iteratore usato al posto del foreach
+			Iterator<Person> iter = persone.iterator();
+			while (iter.hasNext()) {
+				Person p = iter.next();
+				hashmap.put(p, null);
 			}
 
-		};
-		for (Person p : persone) {
-			hashmap.put(p, null);
+			// mostro i risultati "serializzati"
+			System.out.print("{");
+			for (Person p : hashmap.keySet()) {
+				System.out.print(" \"" + p.getNome() + "\" : " + hashmap.get(p) + " ");
+			}
+			System.out.println("}");
 		}
-		
-		
-		System.out.print("{");
-		for (Person p : hashmap.keySet()) {
-			System.out.print(" \"" + p.getNome() + "\" : " + hashmap.get(p) + " ");
+
+		TREEMAP: {
+			Map<Person, Integer> treemap = new TreeMap<Person, Integer>() {
+
+				@Override
+				public Integer put(Person key, Integer value) {
+					if (this.containsKey(key))
+						return super.put(key, this.get(key) + 1);
+					return super.put(key, 1);
+				}
+
+			};
+
+			// iteratore usato al posto del foreach
+			Iterator<Person> iter = persone.iterator();
+			while (iter.hasNext()) {
+				Person p = iter.next();
+				treemap.put(p, null);
+			}
+
+			// mostro i risultati "serializzati"
+			System.out.print("{");
+			for (Person p : treemap.keySet()) {
+				System.out.print(" \"" + p.getNome() + "\" : " + treemap.get(p) + " ");
+			}
+			System.out.println("}");
+
 		}
-		System.out.print("}");
-		
 	}
 }
