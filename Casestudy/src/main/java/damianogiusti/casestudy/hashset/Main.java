@@ -1,4 +1,4 @@
-package damianogiusti.casestudy;
+package damianogiusti.casestudy.hashset;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,13 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
-import com.google.maps.GeocodingApiRequest;
 import com.google.maps.model.GeocodingResult;
 
 class WrongParametersException extends RuntimeException {
@@ -55,7 +54,7 @@ public class Main {
 
 			String riga;
 			int contatoreId = 0;
-			HashMap<Location, List<Integer>> map = new HashMap<Location, List<Integer>>() {
+			TreeMap<Location, List<Integer>> map = new TreeMap<Location, List<Integer>>() {
 
 				@Override
 				public List<Integer> put(Location key, List<Integer> value) {
@@ -132,7 +131,7 @@ public class Main {
 		return result;
 	}
 
-	private static void showMap(HashMap<Location, List<Integer>> map) {
+	private static void showMap(TreeMap<Location, List<Integer>> map) {
 
 		for (Address key : map.keySet()) {
 			List<Integer> list = map.get(key);
@@ -145,7 +144,7 @@ public class Main {
 		System.out.println("Size of map: " + map.size());
 	}
 
-	private static void okGoogle(HashMap<Location, List<Integer>> map, String googlekey) throws Exception {
+	private static void okGoogle(TreeMap<Location, List<Integer>> map, String googlekey) throws Exception {
 
 		GeoApiContext context = new GeoApiContext().setApiKey(googlekey);
 
@@ -160,7 +159,7 @@ public class Main {
 		}
 	}
 
-	private static void writeGoogleDatas(HashMap<Location, List<Integer>> map) throws IOException {
+	private static void writeGoogleDatas(TreeMap<Location, List<Integer>> map) throws IOException {
 
 		FileWriter fw = new FileWriter("googleOutput.csv");
 		PrintWriter pw = new PrintWriter(fw);

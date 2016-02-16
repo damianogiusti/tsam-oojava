@@ -1,6 +1,6 @@
-package damianogiusti.casestudy;
+package damianogiusti.casestudy.treemap;
 
-public class Address {
+public class Address implements Comparable<Address> {
 	
 	private String tipoVia;
 	private String via;
@@ -53,6 +53,11 @@ public class Address {
 	@Override
 	public int hashCode() {
 		return this.toString().hashCode();
+	}
+	
+	@Override
+	public int compareTo(Address o) {	
+		return this.toString().compareTo(o.toString());
 	}
 	
 	@Override

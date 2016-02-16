@@ -1,4 +1,4 @@
-package damianogiusti.casestudy;
+package damianogiusti.casestudy.hashmap;
 
 public class Location extends Address {
 
