@@ -26,9 +26,9 @@ public class Commercialista {
 		int totale = 0;
 
 		for (Cliente c : clienti.keySet()) {
-			if (clienti.get(c) == 1) {
+			//if (clienti.get(c) == 1) {
 				totale += c.calcolaParcella() * 100;
-			}
+			//}
 		}
 
 		return totale;
